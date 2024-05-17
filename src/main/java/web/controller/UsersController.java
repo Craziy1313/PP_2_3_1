@@ -37,11 +37,13 @@ public class UsersController {
         userService.createUser(user);
         return "redirect:/";
     }
+    //изменение
     @PatchMapping("editForm")
     public String processEditForm(@ModelAttribute("user") User user){
         userService.updateUser(user);
         return "redirect:/";
     }
+    //удаление
     @DeleteMapping
     public String processDeleteForm(@ModelAttribute("user") User user){
         userService.deleteUser(user.getId());
