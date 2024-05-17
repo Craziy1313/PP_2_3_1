@@ -5,33 +5,38 @@
     <title>Users</title>
 </head>
 <body>
-
-<table>
+<table border="1" cellpadding="5">
     <thead>
-    <th>Name</th>
-    <th>Surname</th>
-    <th>Email</th>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>LastName</th>
+        <th>E-mail</th>
+    </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"></td>
         <td th:text="${user.getFirstName()}"></td>
         <td th:text="${user.getLastName()}"></td>
         <td th:text="${user.getEmail()}"></td>
-
-        <td><form th:method="GET" th:action="@{${user.getId()}+'/edit'}" th:object="${user}">
-            <input type="submit" value="EDIT USER"/>
-        </form></td>
-
-        <td><form th:method="DELETE" th:action="@{${user.getId()}}" th:object="${user}">
-            <input type="submit" value="DELETE USER"/>
-        </form></td>
-
     </tr>
+
     </tbody>
 </table>
-<br>
-<input type="button" value="Add User"
+<br/>
+<hr/>
+<input type="button" value="CREATE USER"
        onclick="window.location.href = 'new'">
+<br/>
+<hr/>
+<h2>Enter User ID to EDIT or DELETE</h2>
+<br/>
+<form action="user" method="get">
+    <input type="text" name="userId"
+    placeholder="Write USER id"/>
+    <input type="submit">
 
+</form>
 </body>
 </html>
