@@ -8,6 +8,7 @@ import web.models.User;
 import web.servise.UserService;
 
 @Controller
+@RequestMapping
 public class UsersController {
 
     private final UserService userService;
@@ -21,12 +22,6 @@ public class UsersController {
         model.addAttribute("users", userService.getUsersList());
         return "users";
     }
-    //изменение пользователя
-    @RequestMapping("user")
-    public String showUsersForm(@RequestParam ("userId") Long userId, Model model) {
-        model.addAttribute("user", userService.getUser(userId));
-        return "editForm";
-    }
     //новый пользователь
     @GetMapping("/new")
     public String showUserForm(@ModelAttribute("user") User user){
@@ -37,16 +32,21 @@ public class UsersController {
         userService.createUser(user);
         return "redirect:/";
     }
-    //изменение
-    @PatchMapping("editForm")
-    public String processEditForm(@ModelAttribute("user") User user){
+    //изменение пользователя
+    @GetMapping("edit")
+    public String showUsersForm(@RequestParam ("id") Long userId, Model model) {
+        model.addAttribute("user", userService.getUser(userId));
+        return "editForm";
+    }
+    @PostMapping("/userUpdate")
+    public String processEditForm(@ModelAttribute User user){
         userService.updateUser(user);
         return "redirect:/";
     }
     //удаление
-    @DeleteMapping
-    public String processDeleteForm(@ModelAttribute("user") User user){
-        userService.deleteUser(user.getId());
+    @GetMapping("delete")
+    public String processDeleteForm(@RequestParam("id") Long userId) {
+        userService.deleteUser(userId);
         return "redirect:/";
     }
 }

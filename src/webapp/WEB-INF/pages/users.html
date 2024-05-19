@@ -12,14 +12,26 @@
         <th>Name</th>
         <th>LastName</th>
         <th>E-mail</th>
+        <th>Operations</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
+
+
         <td th:text="${user.getId()}"></td>
         <td th:text="${user.getFirstName()}"></td>
         <td th:text="${user.getLastName()}"></td>
         <td th:text="${user.getEmail()}"></td>
+        <td>
+            <form th:action="@{/edit/}">
+                <button type="submit" th:name="id" th:value="${user.id}">Edit</button>
+            </form>
+
+            <form th:action="@{delete/}">
+                <button type="submit" th:name="id" th:value="${user.id}">DELETE</button>
+            </form>
+        </td>
     </tr>
 
     </tbody>
@@ -29,14 +41,5 @@
 <input type="button" value="CREATE USER"
        onclick="window.location.href = 'new'">
 <br/>
-<hr/>
-<h2>Enter User ID to EDIT or DELETE</h2>
-<br/>
-<form action="user" method="get">
-    <input type="text" name="userId"
-    placeholder="Write USER id"/>
-    <input type="submit">
-
-</form>
 </body>
 </html>

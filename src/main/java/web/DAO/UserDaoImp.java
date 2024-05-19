@@ -26,7 +26,7 @@ public class UserDaoImp implements UserDao {
     }
 
     public void deleteUser(Long id) {
-        entityManager.remove(id);
+        entityManager.remove(entityManager.find(User.class, id));
     }
     public User getUser(Long id) {
         return entityManager.find(User.class, id);
